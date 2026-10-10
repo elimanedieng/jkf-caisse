@@ -6,6 +6,24 @@ const defaultState={businessName:'JKF Fast Food',products:[{id:uid(),name:'FATAY
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY));if(x&&Array.isArray(x.products)&&Array.isArray(x.transactions))return {...defaultState,...x}}catch(e){}return defaultState}
 let state=load();let toastTimer;
+// Import historique unique : ventes et dépenses communiquées le 10/10/2026.
+const HISTORIC_IMPORT_KEY='jkf-historique-2026-10-import-v1';
+function importHistoricRecordsOnce(){
+  if(localStorage.getItem(HISTORIC_IMPORT_KEY)==='done') return;
+  const historic={"sales":[["2026-10-08","FATAYA",1,500,500],["2026-10-08","FATAYA",3,500,1500],["2026-10-08","SANDWISH",3,1000,3000],["2026-10-08","FATAYA",1,600,600],["2026-10-09","FATAYA",15,500,7500],["2026-10-09","FATAYA",3,1000,3000],["2026-10-09","FATAYA",3,600,1800],["2026-10-09","TACOS",1,2000,2000],["2026-10-09","LOCAL",1,800,800],["2026-10-09","LOCAL",1,500,500],["2026-10-09","SANDWISH",1,1000,1000],["2026-10-09","SANDWISH",2,1000,2000],["2026-10-10","FATAYA",2,500,500],["2026-10-10","FATAYA",2,600,1200]],"expenses":[["2026-10-07","VIANDE","1",2700,""],["2026-10-07","HACHE","1",600,""],["2026-10-07","OIGNON","1",800,""],["2026-10-07","POMM DE TERR","1",600,""],["2026-10-07","EAU JAVEL","1",500,""],["2026-10-07","SERPIER","1",600,""],["2026-10-07","FATAYA","1",200,""],["2026-10-07","SEL","1",100,""],["2026-10-07","SALAIRE","NIAWOUD",1500,"NIAWOUD"],["2026-10-08","FATAYA","1",200,""],["2026-10-08","VIANDE","1",2700,""],["2026-10-08","PDT","3",1800,""],["2026-10-08","HUILE","1",600,""],["2026-10-08","ŒUF","1",2800,""],["2026-10-08","SALAIRE","NIAWOUD",1500,"NIAWOUD"],["2026-10-09","OIGNON","1",800,""],["2026-10-09","HACHE","1",600,""],["2026-10-09","NOKOS","1",250,""],["2026-10-09","PDT","3KG",1800,""],["2026-10-09","FATAYA","1",200,""],["2026-10-09","SOJA AIL","1",350,""],["2026-10-09","HUILE","1",300,""],["2026-10-09","VIANDE","1",2750,""],["2026-10-10","SALAIRE","NIAWOUD",1500,"NIAWOUD"],["2026-10-10","PDT","D",1800,""],["2026-10-10","OIGNON","J",1600,""],["2026-10-10","FATAYA","K",200,""],["2026-10-10","SOJA MAGI","J",200,""],["2026-10-10","ŒUF","1",2800,""],["2026-10-10","SUCRE","K",150,""]]};
+  const saleProducts=[['FATAYA',500],['SANDWISH',1000],['TACOS',2000],['LOCAL',800]];
+  saleProducts.forEach(([name,price])=>{if(!state.products.some(p=>norm(p.name)===norm(name)))state.products.push({id:uid(),name,price})});
+  historic.sales.forEach(([date,name,qty,unitPrice,amount])=>state.transactions.push({id:uid(),type:'sale',date,detail:name,qty,unitPrice,amount,payment:'Espèces',note:'Historique importé'}));
+  historic.expenses.forEach(([date,name,quantity,amount,supplier])=>{
+    const category=name==='SALAIRE'?'SALAIRE':name;
+    const description=name==='SALAIRE'?(supplier||'NIAWOUD'):`Quantité : ${quantity}`;
+    state.transactions.push({id:uid(),type:'expense',date,detail:`${category} — ${description}`,category,supplier:supplier||'',amount,payment:'Espèces',note:'Historique importé'});
+  });
+  localStorage.setItem(HISTORIC_IMPORT_KEY,'done');
+  localStorage.setItem(KEY,JSON.stringify(state));
+}
+importHistoricRecordsOnce();
+
 function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
 function money(n){return new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(Number(n)||0)+' FCFA'}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}

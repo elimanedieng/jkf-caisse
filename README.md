@@ -1,4 +1,4 @@
-# JKF — Gestion de caisse (version tableau de bord + sécurité)
+# JKF — Gestion de caisse (version tableau de bord + sécurité + historique importé)
 
 Application web responsive pour ordinateur et mobile.
 
@@ -11,7 +11,8 @@ Application web responsive pour ordinateur et mobile.
 - Historique, recherche et export CSV.
 - Sauvegarde/restauration JSON.
 - Mot de passe requis avant l'effacement de toutes les données locales.
-- Cache du site actualisé (v5) pour réduire les problèmes d'ancienne version.
+- Cache du site actualisé (v6) pour réduire les problèmes d'ancienne version.
+- Import automatique, une seule fois par navigateur, des ventes du 08 au 10/10/2026 et des dépenses du 07 au 10/10/2026 fournies par l’utilisateur.
 
 ## Mise à jour sur GitHub Pages
 1. Sauvegardez d'abord vos données depuis **Paramètres et sauvegarde → Télécharger une sauvegarde**.
