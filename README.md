@@ -1,6 +1,6 @@
 # JKF — Gestion de caisse (application web)
 
-Application web responsive pour mobile et ordinateur : tableau de bord journalier, saisie de ventes et dépenses, historique filtrable, catalogue produits/prix, export CSV et sauvegarde/restauration JSON. Installable comme PWA sur les navigateurs compatibles.
+Application web responsive pour mobile et ordinateur : tableau de bord analytique avec filtres jour/semaine/mois/année/plage personnalisée, produits les plus et moins vendus, dépenses classées par catégorie avec salaires et électricité séparés, saisie de ventes et dépenses, historique filtrable, catalogue produits/prix, export CSV et sauvegarde/restauration JSON. Installable comme PWA sur les navigateurs compatibles.
 
 ## Déployer gratuitement avec GitHub Pages
 1. Connectez-vous à https://github.com/ et créez un nouveau dépôt, par exemple `jkf-caisse`.
