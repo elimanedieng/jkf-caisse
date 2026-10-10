@@ -1,5 +1,5 @@
-const CACHE='jkf-caisse-v6';
-const FILES=['./','./index.html','./style.css?v=6','./app.js?v=6','./manifest.webmanifest','./icon.svg'];
+const CACHE='jkf-caisse-v7';
+const FILES=['./','./index.html','./style.css?v=7','./app.js?v=7','./manifest.webmanifest','./icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)).then(() => self.skipWaiting()));
 });

@@ -23,3 +23,7 @@ Application web responsive pour ordinateur et mobile.
 6. Attendez quelques minutes, puis ouvrez le site et faites `Ctrl + F5`. Sur téléphone, fermez l'application installée puis rouvrez le site dans le navigateur.
 
 Les données restent dans le stockage local du navigateur. Le déploiement du nouveau code ne doit pas effacer ces données, mais une sauvegarde est recommandée avant toute mise à jour. La protection par mot de passe dans cette version est une barrière contre l'effacement accidentel, pas une authentification serveur forte.
+
+
+## Code de connexion
+À la première ouverture après publication, l’application demande de créer un code d’au moins 4 caractères. À chaque ouverture suivante, le code est demandé. Pour le modifier, ouvrir **Paramètres et sauvegarde → Code de connexion**. Le code est stocké dans le navigateur utilisé : il n’est pas synchronisé automatiquement entre appareils. Cette protection côté navigateur décourage les accès occasionnels mais ne remplace pas une authentification serveur et peut être contournée par une personne ayant accès aux fichiers ou aux outils du navigateur.
